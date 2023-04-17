@@ -1,14 +1,10 @@
-import { TemplateEngineRepository } from "@core/repositories/TemplateEngineRepository"
+import { TextToReplace } from '@core/models/TextToReplace';
+import { TemplateEngineRepository } from '../repositories/TemplateEngineRepository';
+import { Dictionary } from '@core/models/Dictionary';
 
-export class TemplateEngineService {
+export class TemplateEngineService implements TemplateEngineRepository {
 
-    private templateEngineRepository: TemplateEngineRepository
-
-    constructor (templateEngineRepository: TemplateEngineRepository) {
-        this.templateEngineRepository = templateEngineRepository
-    }
-
-    replaceVariable(text: string, dictionary: Object): string {
+    replaceVariable(texToReplace: TextToReplace, variableDictionary: Dictionary): string {
 
         throw new Error('Not implemented yet')
 

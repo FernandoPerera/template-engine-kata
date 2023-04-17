@@ -21,4 +21,9 @@ describe('Text to replace test', () => {
 
     })
 
+    // texto para ${change} las variables y ponerlo ${perfect}
+    // { test: 'epa', change: '', perfect: 'fino' }
+    //  texto para ${change} las variables y ponerlo fino
+    // warning las siguientes variables no han podido ser reemplazadas : 
+    // [ change: porque estaba vacio, miPadre: porque es null ]
 })

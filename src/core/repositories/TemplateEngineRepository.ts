@@ -1,6 +1,8 @@
+import { Dictionary } from "@core/models/Dictionary";
+import { TextToReplace } from "@core/models/TextToReplace";
 
 export interface TemplateEngineRepository {
 
-    replaceVariable(text: string, dictionary: Object): string
+    replaceVariable(texToReplace: TextToReplace, variableDictionary: Dictionary): string 
 
 }
