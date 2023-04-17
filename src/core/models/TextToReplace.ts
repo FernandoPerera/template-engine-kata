@@ -13,7 +13,7 @@ export class TextToReplace {
 
         if (textIsEmpty) { throw new Error('The text to replace cant be empty') }
 
-        throw new Error('Not implemented yet')
+        return new TextToReplace(textToReplace)
     }
 
 }
