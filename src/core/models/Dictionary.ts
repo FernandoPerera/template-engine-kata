@@ -13,7 +13,7 @@ export class Dictionary {
 
         if (objectIsEmpty) { throw new Error('The object cant be empty') }
 
-        throw new Error('Not implemented yet')
+        return new Dictionary(dictionary)
     }
 
 }
