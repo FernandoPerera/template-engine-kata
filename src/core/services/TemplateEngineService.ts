@@ -1,15 +1,21 @@
 import { TextToReplace } from '@core/models/TextToReplace';
 import { TemplateEngineRepository } from '../repositories/TemplateEngineRepository';
-import { Dictionary } from '@core/models/Dictionary';
-
+import { Dictionary } from '@core/models/Dictionary'
 export class TemplateEngineService implements TemplateEngineRepository {
 
     replaceVariable(texToReplace: TextToReplace, variableDictionary: Dictionary): string {
 
-        const key = Object.keys(variableDictionary.getDictionary())
-        const value = variableDictionary.getDictionary()[key[0]]
+        let replacedText = ""
+        let variableText = texToReplace.getTextToReplace()
+        const dictionary: Object = variableDictionary.getDictionary()
 
-        return texToReplace.getTextToReplace().replace("${" + key + "}", value)
+        Object.keys(dictionary).forEach(key => {
+            const value = dictionary[key]
+            replacedText = variableText.replace("${" + key + "}", value)
+            variableText = replacedText
+        })
+
+        return replacedText
 
     }
 
