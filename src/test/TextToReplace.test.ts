@@ -1,4 +1,4 @@
-import { TextToReplace } from '../core/models/TextToReplace'
+import { TextToReplace } from '../core/models/TextToReplace';
 
 /*
  *  ''                  ->   error response
@@ -9,9 +9,7 @@ describe('Text to replace test', () => {
 
     it('should error response if the text is empty', () => {
 
-        const textToReplace = TextToReplace.create('')
-
-        expect( () => textToReplace ).toThrow('The text to replace cant be empty')
+        expect( () => TextToReplace.create('') ).toThrow('The text to replace cant be empty')
 
     })
 
