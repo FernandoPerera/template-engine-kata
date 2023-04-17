@@ -44,4 +44,19 @@ describe('Template engine test', () => {
 
     })
 
+    it('should return warning if the variable is not serializable', () => {
+
+        const warn = jest.spyOn(console, "warn").mockImplementation(() => {})
+        const textToReplace: TextToReplace = TextToReplace.create('this is a ${variable} for ${variable2}')
+        const variableDictionary: Dictionary = Dictionary.create({ variable: 'text', variable2: null })
+        const expectedRespose: string = 'this is a text for ${variable2}'
+        const expectedWarning: string = "warning: [{variable: 'variabe7', reason: 'variable dont exist in text'}]"
+
+        const result: string = templateEngineService.replaceVariable(textToReplace, variableDictionary)
+
+        expect(warn).toBeCalledWith(expectedWarning)
+        expect(result).toBe(expectedRespose)
+
+    })
+
 })
