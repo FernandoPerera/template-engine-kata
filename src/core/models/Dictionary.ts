@@ -16,4 +16,8 @@ export class Dictionary {
         return new Dictionary(dictionary)
     }
 
+    getDictionary(): Object {
+        return this.dictionary
+    }
+
 }

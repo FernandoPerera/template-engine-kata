@@ -6,7 +6,10 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
     replaceVariable(texToReplace: TextToReplace, variableDictionary: Dictionary): string {
 
-        throw new Error('Not implemented yet')
+        const key = Object.keys(variableDictionary.getDictionary())
+        const value = variableDictionary.getDictionary()[key[0]]
+
+        return texToReplace.getTextToReplace().replace("${" + key + "}", value)
 
     }
 
