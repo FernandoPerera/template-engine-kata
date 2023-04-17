@@ -13,4 +13,12 @@ describe('Dictionary test', () => {
 
     })
 
+    it('should return same response if object is not empty', () => {
+
+        const dictionary: Dictionary = Dictionary.create({ test: 'green test' })
+
+        expect(dictionary).toBe(dictionary)
+
+    })
+
 })
