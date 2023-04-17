@@ -9,7 +9,9 @@ export class TextToReplace {
 
     static create(textToReplace: string): TextToReplace {
 
-        if (textToReplace == '') { throw new Error('The text to replace cant be empty') }
+        const textIsEmpty = textToReplace == ''
+
+        if (textIsEmpty) { throw new Error('The text to replace cant be empty') }
 
         throw new Error('Not implemented yet')
     }
