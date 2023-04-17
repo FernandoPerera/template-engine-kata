@@ -9,7 +9,9 @@ export class Dictionary {
 
     static create(dictionary: Object): Dictionary {
 
-        if (Object.keys(dictionary).length === 0) { throw new Error('The object cant be empty') }
+        const objectIsEmpty = Object.keys(dictionary).length === 0
+
+        if (objectIsEmpty) { throw new Error('The object cant be empty') }
 
         throw new Error('Not implemented yet')
     }
