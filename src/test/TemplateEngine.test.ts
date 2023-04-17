@@ -32,4 +32,16 @@ describe('Template engine test', () => {
 
     })
 
+    it('should return the same text with the multiple variables changed if the text and dictionary its correct', () => {
+
+        const textToReplace: TextToReplace = TextToReplace.create('this is a ${variable} for ${variable2}')
+        const variableDictionary: Dictionary = Dictionary.create({ variable: 'text', variable2: 'example' })
+        const expectedRespose: string = 'this is a text for example'
+
+        const result: string = templateEngineService.replaceVariable(textToReplace, variableDictionary)
+
+        expect(result).toBe(expectedRespose)
+
+    })
+
 })
