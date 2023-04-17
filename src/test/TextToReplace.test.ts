@@ -13,4 +13,12 @@ describe('Text to replace test', () => {
 
     })
 
+    it('should return same text if the text is not empty', () => {
+
+        const textToReplace: TextToReplace = TextToReplace.create('text to replace')
+
+        expect(textToReplace).toBe(textToReplace)
+
+    })
+
 })
