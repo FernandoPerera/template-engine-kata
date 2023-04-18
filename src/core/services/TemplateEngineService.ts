@@ -16,11 +16,17 @@ export class TemplateEngineService implements TemplateEngineRepository {
             const value = dictionary[key]
             const variableToSearch = "${" + key + "}"
 
-            if (variableText.includes(variableToSearch)) {
+            if (!this.isSerializable(value)) {
+
+                wrongKeys.push({ wrongKey: key, reason: 'variable is not serializable' })
+
+            } else if (variableText.includes(variableToSearch)) {
+
                 replacedText = variableText.replace(variableToSearch, value)
                 variableText = replacedText
+                
             } else {
-                wrongKeys.push({wrongKey: key, reason: 'variable dont exist in text'})
+                wrongKeys.push({ wrongKey: key, reason: 'variable dont exist in text' })
             }
 
         })
@@ -31,11 +37,17 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
     }
 
-    private checkLengthFrom( wrongKeys: Array<{}> ) {
+    private checkLengthFrom(wrongKeys: Array<{}>) {
 
-        if ( wrongKeys.length > 0 ) {
+        if (wrongKeys.length > 0) {
             console.warn('warning : ' + JSON.stringify(wrongKeys).replace(/\"/gi, ''))
-        } 
+        }
+
+    }
+
+    private isSerializable(value: any): boolean {
+
+        return (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number')
 
     }
 

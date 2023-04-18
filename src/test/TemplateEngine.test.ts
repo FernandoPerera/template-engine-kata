@@ -58,7 +58,7 @@ describe('Template engine test', () => {
         expect(warn).toBeCalledWith(expectedWarning)
         expect(result).toBe(expectedRespose)
 
-        warn.mockReset()
+        warn.mockReset();
 
     })
 
@@ -66,7 +66,7 @@ describe('Template engine test', () => {
 
         const warn = jest.spyOn(console, "warn").mockImplementation(() => {})
         const textToReplace: TextToReplace = TextToReplace.create('this is a ${variable} for ${variable2}')
-        const variableDictionary: Dictionary = Dictionary.create({ variable: 'text', variable2: ""})
+        const variableDictionary: Dictionary = Dictionary.create({ variable: 'text', variable2: undefined})
         const expectedRespose: string = 'this is a text for ${variable2}'
         const expectedWarning: string = "warning : [{wrongKey:variable2,reason:variable is not serializable}]"
 
