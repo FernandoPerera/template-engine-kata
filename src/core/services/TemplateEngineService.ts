@@ -11,6 +11,19 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
         const wrongKeys: Array<{}> = []
 
+        const variableList = variableText.match(/\${\w*}/g)
+
+        variableList.forEach(textKey => {
+
+            textKey = textKey.replace(/\${|}/g, '')
+
+            if (!Object.keys(dictionary).includes(textKey)) {
+                wrongKeys.push({ wrongKey: textKey, reason: 'variable dont exist in dictionary' })
+            }
+
+        })
+
+
         Object.keys(dictionary).forEach(key => {
 
             const value = dictionary[key]
@@ -24,7 +37,7 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
                 replacedText = variableText.replace(variableToSearch, value)
                 variableText = replacedText
-                
+              
             } else {
                 wrongKeys.push({ wrongKey: key, reason: 'variable dont exist in text' })
             }
