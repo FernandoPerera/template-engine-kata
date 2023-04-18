@@ -11,18 +11,7 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
         const wrongKeys: Array<{}> = []
 
-        const variableList = variableText.match(/\${\w*}/g)
-
-        variableList.forEach(textKey => {
-
-            textKey = textKey.replace(/\${|}/g, '')
-
-            if (!Object.keys(dictionary).includes(textKey)) {
-                wrongKeys.push({ wrongKey: textKey, reason: 'variable dont exist in dictionary' })
-            }
-
-        })
-
+        this.checkTextVariables(wrongKeys, variableText, dictionary)
 
         Object.keys(dictionary).forEach(key => {
 
@@ -31,7 +20,7 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
             if (!this.isSerializable(value)) {
 
-                wrongKeys.push({ wrongKey: key, reason: 'variable is not serializable' })
+                this.addWrongKey(wrongKeys, key, 'variable is not serializable')
 
             } else if (variableText.includes(variableToSearch)) {
 
@@ -39,7 +28,7 @@ export class TemplateEngineService implements TemplateEngineRepository {
                 variableText = replacedText
               
             } else {
-                wrongKeys.push({ wrongKey: key, reason: 'variable dont exist in text' })
+                this.addWrongKey(wrongKeys, key, 'variable dont exist in text')
             }
 
         })
@@ -50,7 +39,7 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
     }
 
-    private checkLengthFrom(wrongKeys: Array<{}>) {
+    private checkLengthFrom(wrongKeys: Array<{}>): void {
 
         if (wrongKeys.length > 0) {
             console.warn('warning : ' + JSON.stringify(wrongKeys).replace(/\"/gi, ''))
@@ -61,6 +50,28 @@ export class TemplateEngineService implements TemplateEngineRepository {
     private isSerializable(value: any): boolean {
 
         return (typeof value === 'string' || typeof value === 'boolean' || typeof value === 'number')
+
+    }
+
+    private checkTextVariables(wrongKeys: Array<{}>, variableText: string, dictionary: Object): void {
+
+        const variableList = variableText.match(/\${\w*}/g)
+
+        variableList.forEach(textKey => {
+
+            textKey = textKey.replace(/\${|}/g, '')
+
+            if (!Object.keys(dictionary).includes(textKey)) {
+                this.addWrongKey(wrongKeys, textKey, 'variable dont exist in dictionary')
+            }
+
+        })
+
+    }
+
+    private addWrongKey(wrongKey: Array<{}>, key: string, message: string): void {
+
+        wrongKey.push({ wrongKey: key, reason: message })
 
     }
 
