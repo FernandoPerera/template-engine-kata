@@ -9,11 +9,12 @@ import { TemplateEngineService } from '../core/services/TemplateEngineService';
  *  'this is a ${variable} for ${variable2}'  |  { variable: 'text', variable2: 'example' }
  *               - 'this is a text for example'
  * 
+ * 'this is a ${variable} for ${variable2}'  |  { variable: 'text', variable3: 'example' }
+ *               - 'this is a text for ${variable2}     [warning]
+ * 
  *  'this is a ${variable} for ${variable2}'  |  { variable: 'text', variable2: null }
  *               - 'this is a text for ${variable2}     [warning]
  * 
- *  'this is a ${variable} for ${variable2}'  |  { variable: 'text', variable3: 'example' }
- *               - 'this is a text for ${variable2}     [warning]
 */
 
 describe('Template engine test', () => {
@@ -44,13 +45,13 @@ describe('Template engine test', () => {
 
     })
 
-    it('should return warning if the variable is not serializable', () => {
+    it('should return warning if the variable dont exist in text', () => {
 
         const warn = jest.spyOn(console, "warn").mockImplementation(() => {})
         const textToReplace: TextToReplace = TextToReplace.create('this is a ${variable} for ${variable2}')
-        const variableDictionary: Dictionary = Dictionary.create({ variable: 'text', variable2: null })
-        const expectedRespose: string = 'this is a text for ${variable2}'
-        const expectedWarning: string = "warning: [{variable: 'variabe7', reason: 'variable dont exist in text'}]"
+        const variableDictionary: Dictionary = Dictionary.create({ variable: 'text', variable2: "example", variable7: 'dont exist' })
+        const expectedRespose: string = 'this is a text for example'
+        const expectedWarning: string = "warning : [{wrongKey:variable7,reason:variable dont exist in text}]"
 
         const result: string = templateEngineService.replaceVariable(textToReplace, variableDictionary)
 
