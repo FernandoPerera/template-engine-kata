@@ -25,11 +25,17 @@ export class TemplateEngineService implements TemplateEngineRepository {
 
         })
 
+        this.checkLengthFrom(wrongKeys)
+
+        return replacedText
+
+    }
+
+    private checkLengthFrom( wrongKeys: Array<{}> ) {
+
         if ( wrongKeys.length > 0 ) {
             console.warn('warning : ' + JSON.stringify(wrongKeys).replace(/\"/gi, ''))
         } 
-
-        return replacedText
 
     }
 
